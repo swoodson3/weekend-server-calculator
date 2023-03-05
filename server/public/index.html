@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+    <html lang="en"></html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Server Side Calculator</h1>
+    </header>
+    <div>
+		<input type="number" id="num1" placeholder="Number 1">
+		<input type="button" value="+" onclick="addition()">
+        <input type="button" value="-" onclick="subtraction()">
+        <input type="button" value="*" onclick="multiplication()">
+        <input type="button" value="/" onclick="division()">
+        <input type="number" id="num2" placeholder="Number 2">
+		<input type="button" value="=" onclick="calculate()">
+		<input type="button" value="C" onclick="clearInput()">
+	</div>
+	<div id="result"></div>
+	<div id="history">
+		<h2>History</h2>
+		<ul></ul>
+	</div>
+    
+    <!-- Our JavaScript file -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="scripts/client.js"></script>
+</body>
+
+</html>
