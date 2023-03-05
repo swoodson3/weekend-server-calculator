@@ -9,6 +9,8 @@ const port = process.env.PORT || 5001;
 
 const history = [];
 
+const numbers = [];
+
 app.use(bodyParser.json());
 
 app.post('/numbers', (req, res) => {
@@ -49,7 +51,7 @@ app.get('/numbers', (req, res) => {
 // handle GET requests to the /history endpoint
 app.get('/history', (req, res) => {
     console.log('GET request made for /history')
-    res.status(200).send(history);
+    res.status(200);
 });
 
 // Look here for files
