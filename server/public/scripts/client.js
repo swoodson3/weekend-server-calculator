@@ -8,10 +8,12 @@ function operatorFunction(event) {
 }
 
 function calculate(event) {
+    event.preventDefault();
+    console.log('submit is working')
     let value1 = document.querySelector('#value1').value;
     let value2 = document.querySelector('#value2').value;
     let operation = finalVal;
-    console.log(value1, value2, operation);
+    console.log('Inputs are', value1, value2);
 
     let values = {
         first: value1,
@@ -19,6 +21,8 @@ function calculate(event) {
         operator: operation
     };
     console.log(values);
+
+
     axios.post('/numbers', values).then((response) => {
         console.log(response);
         getData();
@@ -49,10 +53,22 @@ function getData() {
 getData();
 
 function addToHistory() {
+axios.get('/history').then((response) => {
+    console.log(response);
+    let resultsFromServer = response.data;
+    let contentTable = document.querySelector('#results');
+    contentTable.innerHTML = `
+    <h2>${resultsFromServer[resultsFromServer.length-1]}<h2>`
+}).catch((error) => {
+    console.log('wrong')
+    alert('Something went wrong')
+})
+};
 
+function clearButton() {
+    document.getElementById('value1').value = '';
+    document.getElementById('value2').value = '';
 }
-
-
 
 
 
