@@ -15,6 +15,16 @@ app.get('/history', (req, res) => {
 	res.status(200).send(history);
 });
 
+app.post('/calculate', (req, res) => {
+    console.log('POST Request made for /calculate');
+    // Any data we send from the client is available
+    // as a property of req.body
+    console.log(req.body);
+    let numberToAdd = req.body
+    history.push(numberToAdd);
+    res.sendStatus(201); // Success!
+});
+
 // Look here for files
 app.use(express.json());
 
