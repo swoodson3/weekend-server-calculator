@@ -13,7 +13,7 @@
     <header>
         <h1>Server Side Calculator</h1>
     </header>
-    <form id ="calculator-form">
+    <div id ="calculator-form">
         <input type="number" id="value1" placeholder="Number 1" required />
         <button onClick="operatorFunction(event)" value="+">+</button>
         <button onClick="operatorFunction(event)" value="-">-</button>
@@ -22,7 +22,7 @@
         <input type="number" id="value2" placeholder="Number 2" required />
         <button onClick="calculate(event)" id="calculate">=</button>
         <button onClick="clearButton()" id="clearInput">C</button>
-    </form>
+    </div>
     <div id="history">
     </div>
     <div id="results">

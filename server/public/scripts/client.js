@@ -1,9 +1,10 @@
 console.log('script sourced.');
 
-let finalVal; 
+let finalVal;
 
 function operatorFunction(event) {
-    finalVal = event.target.value; 
+    event.preventDefault();
+    finalVal = event.target.value;
     console.log(finalVal)
 }
 
@@ -53,16 +54,16 @@ function getData() {
 getData();
 
 function addToHistory() {
-axios.get('/history').then((response) => {
-    console.log(response);
-    let resultsFromServer = response.data;
-    let contentTable = document.querySelector('#results');
-    contentTable.innerHTML = `
-    <h2>${resultsFromServer[resultsFromServer.length-1]}<h2>`
-}).catch((error) => {
-    console.log('wrong')
-    alert('Something went wrong')
-})
+    axios.get('/history').then((response) => {
+        console.log(response);
+        let resultsFromServer = response.data;
+        let contentTable = document.querySelector('#results');
+        contentTable.innerHTML = `
+    <h2>${resultsFromServer[resultsFromServer.length - 1]}<h2>`
+    }).catch((error) => {
+        console.log('wrong')
+        alert('Something went wrong')
+    })
 };
 
 function clearButton() {

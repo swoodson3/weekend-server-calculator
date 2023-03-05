@@ -1,5 +1,6 @@
 // Require express
-const express = require('express')
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 // Heroku assigns us a unique PORT
@@ -8,25 +9,48 @@ const port = process.env.PORT || 5001;
 
 const history = [];
 
+app.use(bodyParser.json());
+
 app.post('/numbers', (req, res) => {
-    
+    console.log('POST Request made for /numbers');
+    const { first, second, operator } = req.body
+    let result
+
+    switch (operator) {
+        case '+':
+            result = Number(first) + Number(second)
+            break
+        case '-':
+            result = Number(first) - Number(second)
+            break
+        case '*':
+            result = Number(first) * Number(second)
+            break
+        case '/':
+            result = Number(first) / Number(second)
+            break
+        default:
+            result = null
+    }
+
+    if (result !== null) {
+        history.push(result)
+        res.status(200).send({ result })
+    } else {
+        res.status(400).send({ error: 'Invalid opertator' })
+    }
 });
 
-/*app.post('/numbers', (req, res) => {
-    console.log(req.body)
-    let first = req.body.first;
-    let second = req.body.second;
-    let operator = req.body.operator;
-
-    
-});*/
+app.get('/numbers', (req, res) => {
+    console.log('GET request made for /numbers');
+    res.send(history)
+})
 
 // handle GET requests to the /history endpoint
 app.get('/history', (req, res) => {
     console.log('GET request made for /history')
-    res.send(history);
+    res.status(200).send(history);
 });
-
 
 // Look here for files
 app.use(express.json());
