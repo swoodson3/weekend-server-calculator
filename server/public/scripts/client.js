@@ -42,7 +42,7 @@ function getResults() {
         contentTable.innerHTML = '';
         for (let data of dataFromServer) {
             contentTable.innerHTML += `
-            <p>${data.first} ${data.operator} ${data.second} = ${data.result}</p>
+            <li>${data.first} ${data.operator} ${data.second} = ${data.result}</li>
             `;
         }
     }).catch((error) => {
