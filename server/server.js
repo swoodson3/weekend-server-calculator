@@ -9,7 +9,6 @@ const port = process.env.PORT || 5001;
 
 const history = [];
 
-const numbers = [];
 
 app.use(bodyParser.json());
 
@@ -36,22 +35,29 @@ app.post('/numbers', (req, res) => {
     }
 
     if (result !== null) {
-        history.push(result)
-        res.status(200).send({ result })
+        history.push({
+            first, 
+            second,
+            operator,
+            result
+        })
+        res.sendStatus(200)
     } else {
-        res.status(400).send({ error: 'Invalid opertator' })
+        res.sendStatus(400)
     }
 });
 
-app.get('/numbers', (req, res) => {
-    console.log('GET request made for /numbers');
-    res.send(history)
-})
 
-// handle GET requests to the /history endpoint
+
 app.get('/history', (req, res) => {
-    console.log('GET request made for /history')
-    res.status(200);
+    console.log('GET request made for /history');
+    res.send(history)
+});
+
+app.get('/last', (req, res) => {
+    console.log('GET request made for /last');
+    let lastResult = history[history.length - 1]
+    res.send(lastResult)
 });
 
 // Look here for files

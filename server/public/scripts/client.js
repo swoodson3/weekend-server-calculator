@@ -14,7 +14,7 @@ function calculate(event) {
     let value1 = document.querySelector('#value1').value;
     let value2 = document.querySelector('#value2').value;
     let operation = finalVal;
-    console.log('Inputs are', value1, value2);
+    console.log('Inputs are', value1, value2, operation);
 
     let values = {
         first: value1,
@@ -26,23 +26,23 @@ function calculate(event) {
 
     axios.post('/numbers', values).then((response) => {
         console.log(response);
-        getData();
-        addToHistory()
+        getLastAnswer();
+        getResults();
     }).catch((error) => {
         console.log(error);
         alert('Something went wrong!')
     });
 }
 
-function getData() {
-    axios.get('/numbers').then((response) => {
+function getResults() {
+    axios.get('/history').then((response) => {
         console.log(response)
         let dataFromServer = response.data
         let contentTable = document.querySelector('#history');
         contentTable.innerHTML = '';
         for (let data of dataFromServer) {
             contentTable.innerHTML += `
-            <h2>${data}</h2>
+            <p>${data.first} ${data.operator} ${data.second} = ${data.result}</p>
             `;
         }
     }).catch((error) => {
@@ -51,20 +51,13 @@ function getData() {
     })
 };
 
-getData();
 
-function addToHistory() {
-    axios.get('/history').then((response) => {
-        console.log(response);
-        let resultsFromServer = response.data;
-        let contentTable = document.querySelector('#results');
-        contentTable.innerHTML = `
-    <h2>${resultsFromServer[resultsFromServer.length - 1]}<h2>`
-    }).catch((error) => {
-        console.log('wrong')
-        alert('Something went wrong')
+function getLastAnswer() {
+    axios.get('/last').then((response) => {
+        let lastAnswerDiv = document.querySelector('#last-answer'); 
+        lastAnswerDiv.innerHTML = response.data.result; 
     })
-};
+}
 
 function clearButton() {
     document.getElementById('value1').value = '';
